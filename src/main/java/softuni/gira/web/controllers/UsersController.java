@@ -1,5 +1,6 @@
 package softuni.gira.web.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -30,7 +31,7 @@ public class UsersController {
     public UserRegisterBindingModel userModel() {
         return new UserRegisterBindingModel();
     }
-
+@PreAuthorize("!isAuthenticated()")
     @GetMapping("/register")
     public String register() {
         return "register";
@@ -50,12 +51,14 @@ public class UsersController {
     }
 
     @GetMapping("/login")
+    @PreAuthorize("!isAuthenticated()")
     public String login() {
 
         return "login";
     }
 
     @PostMapping("/login-err")
+    @PreAuthorize("!isAuthenticated()")
     public String failedLogin(
             @ModelAttribute("email") String email,
             BindingResult bindingResult,

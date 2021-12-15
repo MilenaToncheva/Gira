@@ -30,7 +30,6 @@ public class UserEntity extends BaseEntity {
     }
 
     @Column(nullable = false)
-    @Length(min = 3,max =20 ,message = "Password length must be between 3 and 20 symbols!")
     public String getPassword() {
         return password;
     }

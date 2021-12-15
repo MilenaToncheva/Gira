@@ -25,7 +25,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers("/css/**","/img/**").permitAll()
                 .antMatchers("/","/users/register","/users/login").anonymous()
                 .antMatchers("/**").authenticated()
                 .and()
