@@ -9,4 +9,5 @@ import softuni.gira.web.models.UserRegisterBindingModel;
 public interface    UserMapper {
     UserServiceModel mapUserRegisterBindingModelToUserServiceModel(UserRegisterBindingModel userRegisterBindingModel);
     UserEntity mapUserServiceModelToUserEntity(UserServiceModel userServiceModel);
+    UserServiceModel mapUserEntityToUserServiceModel(UserEntity userEntity);
 }

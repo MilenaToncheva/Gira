@@ -31,7 +31,8 @@ public class UsersController {
     public UserRegisterBindingModel userModel() {
         return new UserRegisterBindingModel();
     }
-@PreAuthorize("!isAuthenticated()")
+
+    @PreAuthorize("!isAuthenticated()")
     @GetMapping("/register")
     public String register() {
         return "register";

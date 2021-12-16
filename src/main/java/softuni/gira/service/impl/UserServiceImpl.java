@@ -53,4 +53,13 @@ public class UserServiceImpl implements UserService {
         userEntity.setRoles(roles);
         this.userRepository.save(userEntity);
     }
+
+
+
+    @Override
+    public UserServiceModel findByUsername(String username) {
+        return this.userMapper.mapUserEntityToUserServiceModel(this.userRepository.findByUsername(username).get());
+    }
+
+
 }

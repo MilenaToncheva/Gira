@@ -8,4 +8,8 @@ public interface UserService {
     boolean isEmailUnique(String email);
 
     void register(UserServiceModel userServiceModel);
+
+
+
+    UserServiceModel findByUsername(String name);
 }
