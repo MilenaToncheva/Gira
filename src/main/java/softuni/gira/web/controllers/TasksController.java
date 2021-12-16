@@ -37,39 +37,41 @@ public class TasksController {
         this.classificationService = classificationService;
     }
 
-    @ModelAttribute(name = "taskModel")
-    public TaskBindingModel taskModel() {
+    @ModelAttribute(name = "taskBindingModel")
+    public TaskBindingModel taskBindingModel() {
         return new TaskBindingModel();
     }
 
     @GetMapping("/add")
     @PreAuthorize("isAuthenticated()")
-    public ModelAndView addTask(ModelAndView modelAndView) {
+    public ModelAndView addTask(@ModelAttribute("taskBindingModel") TaskBindingModel taskBindingModel, ModelAndView modelAndView) {
         modelAndView.setViewName("add-task");
         return modelAndView;
     }
 
     @PostMapping("/add")
-    public ModelAndView addTaskConfirm(@Valid @ModelAttribute("taskModel") TaskBindingModel taskModel, Principal principal,
-                                       BindingResult bindingResult,
-                                       ModelAndView modelAndView) {
+    @PreAuthorize("isAuthenticated()")
+    public String addTaskConfirm(@Valid @ModelAttribute("taskBindingModel") TaskBindingModel taskBindingModel, Principal principal,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            modelAndView.addObject("taskModel", taskModel);
-            modelAndView.setViewName("add-task");
-            return modelAndView;
+            redirectAttributes.addFlashAttribute("taskBindingModel", taskBindingModel);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.taskModel", bindingResult);
+            return "add-task";
         }
 
-        TaskServiceModel taskServiceModel = this.taskMapper.mapTaskBindingModelToTaskServiceModel(taskModel);
+        TaskServiceModel taskServiceModel = this.taskMapper.mapTaskBindingModelToTaskServiceModel(taskBindingModel);
         taskServiceModel.setUser(this.userService.findByUsername(principal.getName()));
-        taskServiceModel.setClassification(this.classificationService.findByName(taskModel.getClassification()));
+        taskServiceModel.setClassification(this.classificationService.findByName(taskBindingModel.getClassification()));
         taskServiceModel.setProgress(ProgressEnum.OPEN);
         this.taskService.saveTask(taskServiceModel);
-        modelAndView.setViewName("redirect:/home");
-        return modelAndView;
+        return "redirect:/home";
+
     }
 
     @GetMapping("/progress/{id}")
-    public String updateProgress(@PathVariable("id")String id) throws ChangeSetPersister.NotFoundException {
+    @PreAuthorize("isAuthenticated()")
+    public String updateProgress(@PathVariable("id") String id) throws ChangeSetPersister.NotFoundException {
         this.taskService.updateProgress(id);
         return "redirect:/home";
 

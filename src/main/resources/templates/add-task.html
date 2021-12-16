@@ -12,41 +12,41 @@
     <main class="content-wrap">
         <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Task</span></h1>
         <hr class="hr-3 w-25 bg-white"/>
-        <form class="mx-auto w-25 bg-blur" th:method="post" th:action="@{/tasks/add}" th:object="${taskModel}">
+        <form class="mx-auto w-25 bg-blur" th:method="post" th:action="@{/tasks/add}" th:object="${taskBindingModel}">
             <div class="form-group">
                 <div class="label-holder textCol d-flex justify-content-center">
                     <label for="name" class="h4 mb-2">Name</label>
 
                 </div>
-                <input type="text" class="form-control" id="name" name="name" th:field="*{name}"/>
-                <small th:each="err:${#fields.errors('${taskModel.name}')}" th:text="${err}" class="text-danger"></small>
+                <input type="text" class="form-control" id="name" name="name" th:field="*{name}" th:value="*{name}"/>
+                <small th:each="err:${#fields.errors('${taskBindingModel.name}')}" th:text="${err}" class="text-danger"></small>
             </div>
             <div class="form-group">
                 <div class="label-holder textCol d-flex justify-content-center">
                     <label for="description" class="h4 mb-2">Description</label>
                 </div>
-                <input type="text" class="form-control" id="description" name="description" th:field="*{description}"/>
+                <input type="text" class="form-control" id="description" name="description" th:field="*{description}" th:value="*{description}"/>
 
-                <small th:each="err:${#fields.errors('${taskModel.description}')}" th:text="${err}" class="text-danger"></small>
+                <small th:each="err:${#fields.errors('${taskBindingModel.description}')}" th:text="${err}" class="text-danger"></small>
             </div>
             <div class="form-group">
                 <div class="label-holder  textCol d-flex justify-content-center">
                     <label for="dueDate" class="h4 mb-2">Due Date</label>
                 </div>
-                <input type="date" class="form-control" id="dueDate" name="dueDate" th:field="*{dueDate}"/>
-                <small th:each="err:${#fields.errors('${taskModel.dueDate}')}" th:text="${err}" class="text-danger"></small>
+                <input type="date" class="form-control" id="dueDate" name="dueDate" th:field="*{dueDate}" th:value="*{dueDate}"/>
+                <small th:each="err:${#fields.errors('${taskBindingModel.dueDate}')}" th:text="${err}" class="text-danger"></small>
             </div>
             <div class="form-group">
                 <div class="label-holder  textCol d-flex justify-content-center">
                     <label for="classification" class="h4 mb-2">Classification</label>
                 </div>
                 <select type="text" class="form-control" id="classification" name="classification"
-                        th:field="*{classification}" >
+                        th:field="*{classification}" th:value="*{classification}">
                     <option value="" >Select Classification</option>
                     <option th:each="c:${T(softuni.gira.data.enums.ClassificationEnum).values()}" th:value="${c}" th:text="${c}">BUG</option>
 
                 </select>
-                <small th:each="err:${#fields.errors('${taskModel.classification}')}" th:text="${err}" class="text-danger">Classification
+                <small th:each="err:${#fields.errors('${taskBindingModel.classification}')}" th:text="${err}" class="text-danger">Classification
                     error message</small>
             </div>
 

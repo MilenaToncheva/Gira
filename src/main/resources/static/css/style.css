@@ -193,3 +193,13 @@ background-color: #34ce57;
 .new-line{
     display: block;
 }
+
+.error-page{
+    margin-top:100px;
+    background-color: #212529;
+    color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+    width: 100%;
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<th:block th:include="~{fragments/head}"/>
+<body>
+<div class="page-container">
+    <th:block th:include="~{fragments/navbar}"/>
+    <main class="error-page" >
+        <div class="error-page">
+            <h1 class="text-center text-light" >Something Went Wrong!</h1>
+            <hr class="hr-2 bg-dark">
+            <div class="text-center">
+                <h3 th:text="${message}"></h3>
+            </div>
+        </div>
+
+    </main>
+
+    <th:block th:include="~{fragments/footer.html}"/>
+
+</div>
+</body>
+</html>
